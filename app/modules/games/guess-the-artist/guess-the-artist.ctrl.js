@@ -31,7 +31,7 @@ angular.module('myApp.guess-the-artist')
             };
             
             ctrl.restart = function(){
-                GameLogicService.restart();
+                GameLogicService.initGame();
             };
             
             _init();

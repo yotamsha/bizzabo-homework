@@ -32,11 +32,7 @@ angular.module('myApp.services')
             updateGameState: function (interaction) {
                 _logicManager.updateState(interaction);
                 return _logicManager.getState();
-            },
-            
-            restart: function(){
-                _logicManager.initState();
-            },
+            }
             
         };
 
