@@ -1,4 +1,4 @@
-#  Guesty Frontend Homework
+#  Bizzabo Homework
 
 ## Installation
 
