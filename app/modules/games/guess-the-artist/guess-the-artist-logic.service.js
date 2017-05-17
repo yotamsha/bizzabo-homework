@@ -1,5 +1,6 @@
 angular.module('myApp.guess-the-artist')
-    .service('GuessTheArtistLogic', ['UtilsService', function (UtilsService) {
+    .service('GuessTheArtistLogic', ['UtilsService','ItunesApiService', function (UtilsService, ItunesApiService) {
+
         var _predefinedGuessResults = [
             'Nirvana', 'Radiohead', 'Neil Young', 'Arctic Monkeys', 'Madonna', 'Britney Spears',
             'Foo Fighters', 'ABBA', 'Cat Stevens', 'Genesis', 'Muse', 'Pink Floyd',
@@ -7,16 +8,11 @@ angular.module('myApp.guess-the-artist')
             'Arik Einstein', 'Beck', 'Bob Dylan'
         ];
 
-        var _apiProvider = '';
-
         function _pickRandomGuessResult() {
             return _predefinedGuessResults[UtilsService.getRandomInt(0, _predefinedGuessResults.length - 1)];
         }
 
-        var _gameState = {
-            initialized: false
-        };
-        var guessTheArtistLogic = {
+        var Service = {
 
             gameConfig: {
                 ROUNDS: 5,
@@ -40,9 +36,15 @@ angular.module('myApp.guess-the-artist')
                 return false;
             },
             initNewRound: function () {
-                this.gameState.guessCount = 0;
-                this.gameState.guessResult = _pickRandomGuessResult();
-                this.gameState.hints = [{text: "abc abcd abcde !"}, {text: "abc abcd abcde !"}, {text: "abc abcd abcde !"}];
+                var _this = this
+                _this.gameState.guessCount = 0;
+                _this.gameState.guessResult = _pickRandomGuessResult();
+                ItunesApiService.getAlbumsByArtist(this.gameState.guessResult).then(function(response){
+                    var selectedResults = UtilsService.pickRandomValuesFromArray(response.results,_this.gameConfig.HINTS);
+                    _this.gameState.hints = selectedResults.map(function(obj){
+                        return {text: obj.collectionName, artworkUrl: obj.artworkUrl100}
+                    });
+                });
             },
             updateRound: function () {
                 if (this.gameState.round === this.gameConfig.ROUNDS) {
@@ -60,10 +62,15 @@ angular.module('myApp.guess-the-artist')
             getState: function () {
                 return this.gameState
             },
+            getGameConfig: function () {
+                return this.gameConfig;
+            },
             initState: function () {
                 this.initNewRound();
                 this.gameState.round = 1;
                 this.gameState.score = 0;
+                this.gameState.gameFinished = false;
+
             },
 
             updateState: function (interactionData) {
@@ -82,37 +89,6 @@ angular.module('myApp.guess-the-artist')
                         break;
                 }
             }
-        };
-
-        var _logicManager = guessTheArtistLogic;
-
-        var Service = {
-
-            /*            _getPredefinedGuessResults: function () {
-             return _predefinedGuessResults;
-             },
-             getGameConfig: function () {
-             return _logicManager.gameConfig;
-             },*/
-            initGame: function () {
-                _logicManager.initState();
-                //_gameState.initialized = true;
-            },
-
-            getGameState: function () {
-                return _logicManager.getState();
-            },
-
-            getGameInteractions: function () {
-                return _logicManager.USER_INTERACTIONS;
-            },
-
-            updateGameState: function (interaction) {
-                _logicManager.updateState(interaction);
-                return _logicManager.getState();
-            }
-
-
         };
 
         return Service;

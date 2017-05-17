@@ -10,21 +10,28 @@ angular.module('myApp.guess-the-artist')
         });
     }])
 
-    .controller('GuessTheArtistCtrl', ['GuessTheArtistLogic',
-        function (GuessTheArtistLogic) {
+    .controller('GuessTheArtistCtrl', ['GuessTheArtistLogic','GameLogicService',
+        function (GuessTheArtistLogic, GameLogicService) {
             var ctrl = this;
-            
+
             function _init(){
                 ctrl.userGuess = '';
-                GuessTheArtistLogic.initGame();
-                ctrl.gameState = GuessTheArtistLogic.getGameState();
-                ctrl.interactions = GuessTheArtistLogic.getGameInteractions();
+                GameLogicService.initLogic(GuessTheArtistLogic);
+                GameLogicService.initGame();
+                ctrl.gameState = GameLogicService.getGameState();
+                ctrl.gameConfig = GameLogicService.getGameConfig();
+                ctrl.interactions = GameLogicService.getGameInteractions();
             }
 
             ctrl.guessSubmitted = function(){
-                ctrl.gameState = GuessTheArtistLogic.updateGameState(
+                ctrl.gameState = GameLogicService.updateGameState(
                     {interactionType : ctrl.interactions.GUESS, value: ctrl.userGuess}
                 );
+                ctrl.userGuess = "";
+            };
+            
+            ctrl.restart = function(){
+                GameLogicService.restart();
             };
             
             _init();

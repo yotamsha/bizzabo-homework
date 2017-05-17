@@ -9,7 +9,7 @@ body {
   body h1, body h2, body h3, body h4, body h5, body h6 {
     font-weight: normal; }
   body a {
-    color: #ff8f00;
+    color: #73c0b0;
     cursor: pointer; }
   body ul {
     margin: 0;
@@ -28,29 +28,63 @@ $layout-breakpoint-xs: 600px !default;
 !* Large devices (large desktops, 1200px and up) *!
 @media (min-width: @screen-lg-min) { ... }*/
 .game-container {
+  position: relative;
   margin: 40px auto;
   padding: 50px;
   width: 1000px;
   height: 450px;
   background-color: #ffffff; }
+  .game-container button {
+    color: #ffffff;
+    background-color: #73c0b0; }
   .game-container .game-title {
-    width: 250px;
-    margin: auto; }
+    width: 100%;
+    text-align: center;
+    margin: 0px; }
   .game-container .game-content {
     margin-top: 20px;
     height: 380px; }
     .game-container .game-content.hide-content {
       visibility: hidden; }
+    .game-container .game-content .hints-container h3 {
+      margin-left: 15px; }
     .game-container .game-content .hints-container .hint-item {
-      width: 250px;
-      height: 70px;
-      border: 2px solid #1e6ed0;
-      padding: 15px;
-      border-radius: 4px;
-      margin: 15px; }
+      width: 300px;
+      height: 48px;
+      padding-top: 15px;
+      padding-right: 15px;
+      padding-left: 15px;
+      margin: 15px;
+      background-color: #73c0b0;
+      color: #ffffff;
+      text-align: center; }
+    .game-container .game-content .guess-submission-container {
+      padding-top: 14px; }
+      .game-container .game-content .guess-submission-container label {
+        display: inline-block; }
+      .game-container .game-content .guess-submission-container input {
+        height: 25px;
+        border: 2px solid #73c0b0;
+        padding: 5px;
+        width: 200px;
+        margin-top: 20px;
+        margin-bottom: 20px; }
+      .game-container .game-content .guess-submission-container .submit-btn {
+        margin-top: -3px;
+        margin-bottom: 0px;
+        height: 39px;
+        min-height: 20px; }
   .game-container .score {
     width: 100%;
     text-align: center;
     font-size: 30px; }
+  .game-container .restart-btn {
+    position: absolute;
+    top: 250px;
+    left: 450px;
+    width: 200px;
+    color: #ffffff;
+    height: 50px;
+    font-size: 20px; }
 
 /*# sourceMappingURL=app.css.map */

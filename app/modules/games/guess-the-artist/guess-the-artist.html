@@ -27,33 +27,33 @@
 
 <div class="game-container guess-the-artist">
     <h1 class="game-title">Guess The Artist</h1>
-    <div  class="game-content" ng-class="{'hide-content': ctrl.gameState.gameFinished}"
-          layout="row">
+    <div class="game-content" ng-class="{'hide-content': ctrl.gameState.gameFinished}"
+         layout="row">
         <div class="hints-container" flex="50">
             <h3>
                 Round {{ctrl.gameState.round}}
             </h3>
             <div layout="column">
-                <div class="hint-item" ng-if="ctrl.gameState.guessCount>= $index" ng-repeat="hintObj in ctrl.gameState.hints">
+                <div class="hint-item" ng-if="ctrl.gameState.guessCount>= $index"
+                     ng-repeat="hintObj in ctrl.gameState.hints">
                     {{hintObj.text}}
                 </div>
             </div>
         </div>
         <div class="guess-submission-container" flex="50">
-            <md-input-container>
-                <label>For X points, Who's the artist? (enter the full name)</label>
-                <input ng-model="ctrl.userGuess" type="text">
-            </md-input-container>
-            <md-button class="md-primary" ng-click="ctrl.guessSubmitted()">Submit</md-button>
-            <div class="artwork-hint">
-
+            <label>For {{ctrl.gameConfig.SCORE_RULES[ctrl.gameState.guessCount]}} points,<br> Who's the artist? (enter the
+                full name)</label>
+            <br>
+            <input ng-model="ctrl.userGuess" type="text">
+            <md-button class="submit-btn" ng-click="ctrl.guessSubmitted()">Submit</md-button>
+            <div ng-show="ctrl.gameState.guessCount === ctrl.gameState.hints.length-1" class="artwork-hint">
+                <img ng-src="{{ctrl.gameState.hints[ctrl.gameState.hints.length-1].artworkUrl}}"/>
             </div>
         </div>
     </div>
-    <md-button ng-show="ctrl.gameState.gameFinished" class="md-primary" ng-click="ctrl.restartGame()">Again!</md-button>
+    <md-button ng-show="ctrl.gameState.gameFinished" class="restart-btn" ng-click="ctrl.restart()">Again!</md-button>
     <div class="score">
         Your Total Score: {{ctrl.gameState.score}}
     </div>
-    Correct Answer: {{ctrl.gameState.guessResult}}
 
 </div>
