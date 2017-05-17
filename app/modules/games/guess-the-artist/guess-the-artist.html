@@ -1,0 +1,59 @@
+<!--
+
+<header class="header">
+    <form class="city-selection-form">
+        <md-select id="city-select" placeholder="Explore a City" ng-change="ctrl.locationChanged()"
+                   class="select-box" ng-model="ctrl.selectedLocation">
+            <md-option ng-value="city" ng-repeat="city in ctrl.cities">{{ city }}</md-option>
+
+        </md-select>
+        <h4 class="secondary-title">
+            Discover apartments in the world's most beautiful cities.
+        </h4>
+    </form>
+</header>
+
+<ul class="list-container" layout="row" layout-wrap layout-margin>
+    <li ng-click="ctrl.openModal(propertyItem)" class="list-item"
+        flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" ng-repeat="propertyItem in ctrl.listings">
+        <img class="property-img" ng-src="{{propertyItem.listing.picture_url}}" >
+        <div class="property-text">
+            <div class="prop-title">{{propertyItem.listing.name}}</div>
+            <div class="prop-address">{{propertyItem.listing.public_address}}</div>
+        </div>
+    </li>
+</ul>
+-->
+
+<div class="game-container guess-the-artist">
+    <h1 class="game-title">Guess The Artist</h1>
+    <div  class="game-content" ng-class="{'hide-content': ctrl.gameState.gameFinished}"
+          layout="row">
+        <div class="hints-container" flex="50">
+            <h3>
+                Round {{ctrl.gameState.round}}
+            </h3>
+            <div layout="column">
+                <div class="hint-item" ng-if="ctrl.gameState.guessCount>= $index" ng-repeat="hintObj in ctrl.gameState.hints">
+                    {{hintObj.text}}
+                </div>
+            </div>
+        </div>
+        <div class="guess-submission-container" flex="50">
+            <md-input-container>
+                <label>For X points, Who's the artist? (enter the full name)</label>
+                <input ng-model="ctrl.userGuess" type="text">
+            </md-input-container>
+            <md-button class="md-primary" ng-click="ctrl.guessSubmitted()">Submit</md-button>
+            <div class="artwork-hint">
+
+            </div>
+        </div>
+    </div>
+    <md-button ng-show="ctrl.gameState.gameFinished" class="md-primary" ng-click="ctrl.restartGame()">Again!</md-button>
+    <div class="score">
+        Your Total Score: {{ctrl.gameState.score}}
+    </div>
+    Correct Answer: {{ctrl.gameState.guessResult}}
+
+</div>

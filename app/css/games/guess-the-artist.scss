@@ -1,0 +1,35 @@
+.game-container {
+  margin: 40px auto;
+  padding: 50px;
+  width: 1000px;
+  height: 450px;
+  background-color: #ffffff;
+
+  .game-title {
+    width: 250px;
+    margin: auto;
+  }
+  .game-content {
+    &.hide-content {
+      visibility: hidden;
+    }
+    margin-top: 20px;
+    height: 380px;
+    .hints-container {
+      .hint-item {
+        width: 250px;
+        height: 70px;
+        border: 2px solid #1e6ed0;
+        padding: 15px;
+        border-radius: 4px;
+        margin: 15px;
+      }
+    }
+  }
+  .score {
+    width: 100%;
+    text-align: center;
+    font-size: 30px;
+  }
+
+}

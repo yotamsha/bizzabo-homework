@@ -4,7 +4,7 @@
 angular.module('myApp', [
     'ngRoute',
     'ngMaterial',
-    'myApp.properties-search',
+    'myApp.guess-the-artist',
     'myApp.services'
 ]).config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
     $locationProvider.hashPrefix('!');
